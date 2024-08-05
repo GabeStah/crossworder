@@ -2,15 +2,9 @@
  * @type {import('prettier').Options}
  */
 export default {
-  printWidth: 80,
-  tabWidth: 2,
-  useTabs: false,
-  semi: false,
-  singleQuote: false,
-  trailingComma: "none",
-  bracketSpacing: true,
+  arrowParens: 'avoid',
   bracketSameLine: true,
-  plugins: ["@ianvs/prettier-plugin-sort-imports"],
+  bracketSpacing: true,
   importOrder: [
     "<BUILTIN_MODULES>", // Node.js built-in modules
     "<THIRD_PARTY_MODULES>", // Imports not matched by other special words or groups.
@@ -22,5 +16,14 @@ export default {
     "^~(.*)$",
     "",
     "^[./]"
-  ]
+  ],
+  jsxBracketSameLine: false,
+  jsxSingleQuote: true,
+  plugins: ["@ianvs/prettier-plugin-sort-imports"],
+  printWidth: 80,
+  semi: true,
+  singleQuote: true,
+  tabWidth: 2,
+  trailingComma: 'none',
+  useTabs: false
 }

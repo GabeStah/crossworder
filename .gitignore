@@ -31,3 +31,11 @@ dist/
 
 # typescript
 .tsbuildinfo
+/.idea/.gitignore
+/.idea/aws.xml
+/.idea/crossworder.iml
+/.idea/git_toolbox_blame.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/prettier.xml
+/.idea/vcs.xml
