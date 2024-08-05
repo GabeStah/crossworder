@@ -92,24 +92,20 @@ const CustomPuzzleComponent = () => {
       };
     };
 
-    const changeFillProperty = (selector, newFill) => {
-      // Access all stylesheets of the document
-      const sheets = document.styleSheets;
-
-      // Iterate over the stylesheets
-      for (let i = 0; i < sheets.length; i++) {
-        const rules = sheets[i].cssRules || sheets[i].rules; // Different property depending on browser
-
-        // Iterate over the rules within a stylesheet to find the specific selector
-        for (let j = 0; j < rules.length; j++) {
-          if (rules[j].selectorText === selector) {
-            // Change the 'fill' property, use '!important' if necessary
-            rules[j].style.setProperty('fill', newFill, 'important');
-            break; // Optional: Stop after the first match to prevent changing multiple rules if not needed
+    function adjustStylesheetRule(selector, newStyles) {
+      for (const sheet of document.styleSheets) {
+        if (sheet.cssRules) {
+          for (const rule of sheet.cssRules) {
+            if (rule.selectorText === selector) {
+              for (const [property, value] of Object.entries(newStyles)) {
+                rule.style[property] = value;
+              }
+              return;
+            }
           }
         }
       }
-    };
+    }
 
     // Function to check for the element and execute your effect
     const checkAndExecute = () => {
@@ -138,8 +134,16 @@ const CustomPuzzleComponent = () => {
         });
 
       // Change the fill color dynamically
-      changeFillProperty('.xwd__cell--selected', '#0000FF'); // Example: Change to blue
-      changeFillProperty('.xwd__cell--highlighted', '#ff0073'); // Example: Change to magenta
+      // adjustStylesheetRule('.xwd__cell--selected', { fill: '#0000FF' }); // Example: Change to blue
+      // adjustStylesheetRule('.xwd__cell--highlighted', { fill: '#ff0073' }); // Example: Change to magenta
+
+      adjustStylesheetRule('.xwd__clue-bar-desktop--text', {
+        fontWeight: 'bold',
+        fontSize: '1.5em'
+      });
+      adjustStylesheetRule('.xwd__clue-bar-desktop--number', {
+        fontSize: '1.3em'
+      });
 
       // TODO: Add more logic here
       console.log('Element is loaded or five seconds have passed:', element);
@@ -159,6 +163,7 @@ const CustomPuzzleComponent = () => {
       const clueBar = puzzle.elements.clueBar;
       const clueLists = puzzle.elements.clueLists;
       const puzzleElement = document.getElementById('puzzle');
+
       puzzleElement.style.maxWidth = '100%';
       puzzleElement.style.maxHeight = 'none';
       puzzleElement.style.padding = '0';
@@ -209,7 +214,7 @@ const CustomPuzzleComponent = () => {
 
         clueBarAndBoard.style.display = 'flex';
         clueBarAndBoard.style.flexDirection = 'column';
-        clueBarAndBoard.style.width = '100%';
+        clueBarAndBoard.style.width = 'auto';
         clueBarAndBoard.style.height = '100vh';
 
         board.style.flexGrow = '1';
@@ -223,9 +228,10 @@ const CustomPuzzleComponent = () => {
 
         clueLists.style.display = 'flex';
         clueLists.style.flexDirection = '';
-        clueLists.style.width = '100%';
+        clueLists.style.width = '500px';
+        clueLists.style.maxWidth = '500px';
         clueLists.style.height = '100%';
-        clueLists.style.overflowY = 'auto';
+        // clueLists.style.overflowY = 'auto';
 
         const clueBarHeight = clueBar.offsetHeight;
         const remainingHeight = viewportHeight - clueBarHeight;
