@@ -228,8 +228,8 @@ const CustomPuzzleComponent = () => {
 
         clueLists.style.display = 'flex';
         clueLists.style.flexDirection = '';
-        clueLists.style.width = '500px';
-        clueLists.style.maxWidth = '500px';
+        clueLists.style.width = '400px';
+        clueLists.style.maxWidth = '400px';
         clueLists.style.height = '100%';
         // clueLists.style.overflowY = 'auto';
 
