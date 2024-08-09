@@ -41,7 +41,7 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://www.nytimes.com/crosswords/game/*"
     ]
   }
 }
